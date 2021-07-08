@@ -1,2 +1,4 @@
-iso
+iso/*
+.iso
 Dockerfile
+.git
