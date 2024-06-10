@@ -1,6 +1,7 @@
 #!/bin/sh
 
 set -e
+#set -x
 OUT_DIR=/iso-dir
 
 if [ "$#" -eq 0 ]; then
@@ -22,6 +23,6 @@ cd /debs
 apt-get download \
     $(apt-cache depends --recurse --no-recommends --no-suggests --no-conflicts \
       --no-breaks --no-replaces --no-enhances \
-      --no-pre-depends "${PACKAGES_TO_INSTALL}" | grep "^\w")
+      --no-pre-depends ${PACKAGES_TO_INSTALL} | grep "^\w")
 
-genisoimage -l -U -joliet-long -rock -o "${OUT_DIR}/to-install.iso" "/debs"
+genisoimage -l -U -joliet-long -rock -o "${OUT_DIR}/to-install_${PACKAGES_TO_INSTALL}_$(date --iso=m).iso" "/debs"
