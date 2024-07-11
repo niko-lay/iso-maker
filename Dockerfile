@@ -1,4 +1,4 @@
-ARG DEFAULT_TAG=bullseye-slim
+ARG DEFAULT_TAG=bookworm-slim
 FROM debian:${DEFAULT_TAG}
 
 RUN mkdir -p /debs && mkdir -p /iso-dir
