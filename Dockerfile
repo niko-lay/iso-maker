@@ -9,8 +9,9 @@ RUN apt update && \
     apt install -y genisoimage wget && \
     rm -rf /var/lib/apt/lists/*
 
-RUN echo 'deb http://download.proxmox.com/debian/pve bullseye pve-no-subscription' > /etc/apt/sources.list.d/pve-no-subscription.list && \
-    wget https://enterprise.proxmox.com/debian/proxmox-release-bullseye.gpg -O /etc/apt/trusted.gpg.d/proxmox-release-bullseye.gpg
+RUN DEB_RELEASE=$(env -i bash -c '. /etc/os-release; echo $VERSION_CODENAME') && \
+    echo "deb http://download.proxmox.com/debian/pve ${DEB_RELEASE} pve-no-subscription" > /etc/apt/sources.list.d/pve-no-subscription.list && \
+    wget https://enterprise.proxmox.com/debian/proxmox-release-${DEB_RELEASE}.gpg -O /etc/apt/trusted.gpg.d/proxmox-release-${DEB_RELEASE}.gpg
 
 COPY runme.sh /docker-entrypoint.sh
 
